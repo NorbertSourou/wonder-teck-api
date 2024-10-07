@@ -1,4 +1,4 @@
-const {DataTypes} = require("sequelize");
+const {DataTypes, Op} = require("sequelize");
 const {roles} = require("../../config");
 
 const UserModel = {
@@ -36,7 +36,29 @@ const UserModel = {
     experience: {
         type: DataTypes.STRING,
         allowNull: true
+    },
+    // distance , about , walks , rating , hourlyRate
+    distance: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+    },
+    description: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    walks: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+    },
+    rating: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+    },
+    hourlyRate: {
+        type: DataTypes.INTEGER,
+        allowNull: true
     }
+
 };
 
 module.exports = {
@@ -64,6 +86,14 @@ module.exports = {
     findAllUsers: (query) => {
         return this.model.findAll({
             where: query
+        });
+    },
+
+    findAllUserExceptUserId: (query) => {
+        const id = query.id;
+        return this.model.findAll({
+            where: {id: {[Op.not]: id},
+            }
         });
     },
 

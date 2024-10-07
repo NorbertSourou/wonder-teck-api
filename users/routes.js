@@ -28,7 +28,7 @@ router.patch(
 router.get(
     "/all",
     [isAuthenticatedMiddleware.check],
-    UserController.getAllUsers
+    UserController.findAllUsersExceptCurrent
 );
 
 // router.patch(
@@ -44,7 +44,7 @@ router.get(
 
 router.get(
     "/:userId",
-    [isAuthenticatedMiddleware.check, CheckPermissionMiddleware.has(roles.WALKER), CheckPermissionMiddleware.has(roles.OWNER)],
+    [isAuthenticatedMiddleware.check],
     UserController.getUserById
 );
 router.delete(
